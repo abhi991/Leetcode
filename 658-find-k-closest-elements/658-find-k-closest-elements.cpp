@@ -1,17 +1,12 @@
 class Solution {
 public:
-    vector<int> findClosestElements(vector<int> &arr, int k, int x) {
-        vector <int> ans;
-        priority_queue < pair <int,int>> pq;
-        for(int i =0 ; i < arr.size() ; i++){
-            pq.push({ abs(arr[i]-x) , arr[i] });
-            if(pq.size() > k) pq.pop();
-        }
-        while(!pq.empty()){
-            ans.push_back(pq.top().second);
-            pq.pop();
-        }
-        sort(ans.begin() , ans.end());
-        return ans;
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {        
+        int n = size(arr), R = lower_bound(begin(arr), end(arr), x) - begin(arr), L = R - 1;
+        cout << R << "\n";
+		// expand the [L, R] window till its size becomes equal to k
+        while(k--) 
+            if(R >= n || L >= 0 && x - arr[L] <= arr[R] - x) L--;  // expand from left
+            else R++;                                              // expand from right
+        return vector<int>(begin(arr) + L + 1, begin(arr) + R);
     }
 };
