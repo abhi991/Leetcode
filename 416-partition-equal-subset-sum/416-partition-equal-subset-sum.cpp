@@ -5,8 +5,8 @@ public:
         if(i >= a.size() || tar < 0) return false;
         
         if(dp[i][tar] != -1) return dp[i][tar];
-        
-        return dp[i][tar] = solve(a,tar-a[i],i+1,dp) || solve(a,tar,i+1,dp);
+        bool temp = solve(a,tar-a[i],i+1,dp) || solve(a,tar,i+1,dp);
+        return dp[i][tar] = temp;
     }
     bool canPartition(vector<int>&a) {
         int sum=0 , n = a.size();
