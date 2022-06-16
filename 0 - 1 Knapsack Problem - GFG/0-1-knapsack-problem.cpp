@@ -16,14 +16,14 @@ class Solution{
            return 0;
        }
        
-       if(dp[n][W] != -1) return dp[n][W];
+       if(dp[W][n] != -1) return dp[W][n];
        
        if(wt[n-1] > W) return knapSack(W , wt , val , n-1);
        
        int include = val[n-1] + knapSack(W - wt[n-1], wt , val , n-1);
        int exclude = knapSack(W , wt , val , n-1);
        
-       return dp[n][W] = max(include,exclude);
+       return dp[W][n] = max(include,exclude);
     }
 };
 
