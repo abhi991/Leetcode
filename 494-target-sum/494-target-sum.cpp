@@ -1,18 +1,22 @@
 class Solution {
 public:
-    int solve(vector<int> &a , int t, int n , int dp[101][10001] , int s){
-        
-        if(n < 0 && s == t) return 1;
-        if(n<0) return 0;
-        if(dp[n][s+1000] != -1) return dp[n][s+1000];
-        int add = solve(a,t,n-1,dp,s+a[n]);
-        int sub = solve(a,t,n-1,dp,s-a[n]);
-        return dp[n][s+1000] = add+sub;
-        
+    int solve(vector<int>& nums, int target, int idx, unordered_map<string, int> &dp) {
+        if(idx == nums.size()) {
+            if(target == 0) {
+                return 1;
+            }
+            return 0;
+        }
+        string key = to_string(idx) + " " + to_string(target);
+        if(dp.find(key) != dp.end()) {
+            return dp[key];
+        }
+        int x = solve(nums, target - nums[idx], idx+1, dp);
+        int y = solve(nums, target + nums[idx], idx+1, dp);
+        return dp[key] = x+y;
     }
     int findTargetSumWays(vector<int>& nums, int target) {
-        int dp[101][10001];
-        memset(dp,-1,sizeof(dp));
-        return solve(nums, target , nums.size()-1,dp,0);
+        unordered_map<string, int> dp;
+        return solve(nums, target, 0, dp);
     }
 };
