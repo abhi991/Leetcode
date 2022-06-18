@@ -11,12 +11,8 @@ using namespace std;
 class Solution {
 public:
     int N,M;
-    bool isSafe(vector<vector<int>> &matrix, int x, int y){
-        return x>=0 && y>=0 && x<N && y<M && matrix[x][y]==1;
-    }
-    
     int helper(vector<vector<int>> matrix, int x, int y, int xd, int yd){
-        if(isSafe(matrix,x,y)==false){
+        if(x < 0 || y < 0 || x >= N || y >= M || matrix[x][y] == 0){
             return INT_MIN;
         }
         if(x==xd && y==yd){
@@ -35,7 +31,7 @@ public:
         N=matrix.size();
         M=matrix[0].size();
         int ans=helper(matrix,xs,ys,xd,yd);
-        return ans<0 ? -1 : ans;
+        return ans < 0 ? -1 : ans;
     }
 };
 
