@@ -16,15 +16,26 @@ class Solution{
         if(s[n-1] == t[m-1]){
             take = 1 + longestCommonSubst(s,t,n-1,m-1 , ans);
         }
+        
         int tp1 = longestCommonSubst(s,t,n-1,m,ans);
         int tp2 = longestCommonSubst(s,t,n,m-1,ans);
+        
         ans = max(ans , take);
         return dp[n][m] = take;
     }
     int longestCommonSubstr (string s, string t, int n, int m){
-        memset(dp,-1,sizeof(dp));
+        memset(dp,0,sizeof(dp));
         int ans=0;
-        longestCommonSubst(s,t,n,m ,ans);
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                if(s[i-1] == t[j-1]){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                    ans = max(ans , dp[i][j]);
+                }
+                else dp[i][j]=0;
+            }
+        }
+        // longestCommonSubst(s,t,n,m ,ans);
         return ans;
     }
 };
