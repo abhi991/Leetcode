@@ -7,9 +7,7 @@ public:
             return;
         }
         v.push_back(i);
-        cout << i << " ";
         solve(ans, v , k , n-i , i+1);
-        cout << n << endl;
         v.pop_back();
         solve(ans, v , k , n , i+1);   
     }
