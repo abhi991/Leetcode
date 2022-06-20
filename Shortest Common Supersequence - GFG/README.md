@@ -1,5 +1,5 @@
 # Shortest Common Supersequence
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given two&nbsp;strings X and Y&nbsp;of lengths&nbsp;m and n&nbsp;respectively, find the length of the smallest string which has both, X and Y as its sub-sequences.<br>
 Note:&nbsp;X&nbsp;and Y can have both uppercase and lowercase letters.</span></p>
