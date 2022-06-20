@@ -1,7 +1,7 @@
 class Solution {
 public:
-    int dp[1001][1001];
-    int lcs(string s, string t, int n , int m){
+    int dp[501][501];
+    int lcs(string &s, string &t, int n , int m){
         if(n==0 || m==0) return 0;
         if(dp[n][m] != -1) return dp[n][m];
         
