@@ -9,36 +9,24 @@ using namespace std;
 
 class Solution{
 public:
-    // Solution(){
-    //     memset(dp , -1 , sizeof(dp));
-    // }
-    // bool isSubsetSum(vector<int>a, int sum ,int i=0){
-        
-    //     if(sum==0) return true;
-    //     if(sum < 0) return false;
-    //     if(i == a.size()) return false;
-        
-    //     if(dp[i][sum] != -1) return dp[i][sum];
-        
-    //     bool m = isSubsetSum(a, sum - a[i] , i+1);
-    //     bool n = isSubsetSum(a, sum , i+1);
-    //     return dp[i][sum] = m||n;
-    // }
-    bool isSubsetSum(vector<int> a, int sum){
-        int dp[101][10001];
-        for(int i=0;i<=a.size();i++) dp[i][0] = 1;
-        for(int i=1;i<=sum;i++) dp[0][i] = 0;
-        
-        for(int i=1;i<=a.size();i++){
-            for(int j=1;j<=sum;j++){
-                if(j >= a[i-1]){
-                    dp[i][j] = dp[i-1][j - a[i-1]] || dp[i-1][j];
-                }
-                else dp[i][j] = dp[i-1][j];
-            }
+    int dp[101][10001];
+    bool f(vector<int>&a, int s ,int n){
+        if(s == 0){
+            return true;
         }
+        if(s < 0) return false;
+        if(n < 0) return false;
         
-        return dp[a.size()][sum];
+        if(dp[n][s] != -1) return dp[n][s];
+        
+        bool p = f(a,s-a[n],n-1);
+        bool q = f(a,s,n-1);
+        
+        return dp[n][s] = p||q;
+    }
+    bool isSubsetSum(vector<int>a, int s){
+        memset(dp , -1 , sizeof(dp));
+        return f(a,s,a.size()-1);
     }
 };
 
