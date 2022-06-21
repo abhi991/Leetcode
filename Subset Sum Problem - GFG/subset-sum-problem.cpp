@@ -10,23 +10,15 @@ using namespace std;
 class Solution{
 public:
     int dp[101][10001];
-    bool f(vector<int>&a, int s ,int n){
-        if(s == 0){
-            return true;
-        }
-        if(s < 0) return false;
-        if(n < 0) return false;
-        
+    bool f(vector<int>&a, int n ,int s){
+        if(s == 0) return true;
+        if(s < 0 || n == 0) return false;
         if(dp[n][s] != -1) return dp[n][s];
-        
-        bool p = f(a,s-a[n],n-1);
-        bool q = f(a,s,n-1);
-        
-        return dp[n][s] = p||q;
+        return dp[n][s] = f(a,n-1,s)||f(a,n-1,s-a[n-1]);
     }
     bool isSubsetSum(vector<int>a, int s){
         memset(dp , -1 , sizeof(dp));
-        return f(a,s,a.size()-1);
+        return f(a,a.size(),s);
     }
 };
 
