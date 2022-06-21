@@ -1,12 +1,13 @@
 class Solution {
 public:
-    bool solve(vector<int>a, int tar , int i ,vector<vector<int>> &dp){
+    bool solve(vector<int>&a, int tar , int i ,vector<vector<int>> &dp){
         if(tar == 0) return true;
-        if(i >= a.size() || tar < 0) return false;
-        
+        if(i >= a.size() || tar < 0) return false; 
         if(dp[i][tar] != -1) return dp[i][tar];
-        bool temp = solve(a,tar-a[i],i+1,dp) || solve(a,tar,i+1,dp);
-        return dp[i][tar] = temp;
+        bool temp = solve(a,tar-a[i],i+1,dp);
+        bool temp2 = solve(a,tar,i+1,dp);
+        bool maintemp=temp||temp2;
+        return dp[i][tar] = maintemp;
     }
     bool canPartition(vector<int>&a) {
         int sum=0 , n = a.size();
