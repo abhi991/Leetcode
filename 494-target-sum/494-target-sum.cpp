@@ -1,14 +1,13 @@
 class Solution {
 public:
     int solve(vector<int> &a , int t, int n , int dp[101][2001] , int s){
-        
         if(n == 0 && s == t) return 1;
         if(n == 0) return 0;
         if(dp[n][s+1000] != -1) return dp[n][s+1000];
-        int add = solve(a,t,n-1,dp,s+a[n-1]);
-        int sub = solve(a,t,n-1,dp,s-a[n-1]);
-        return dp[n][s+1000] = add+sub;
-    
+        int count=0;
+        count += solve(a,t,n-1,dp,s+a[n-1]);
+        count += solve(a,t,n-1,dp,s-a[n-1]);
+        return dp[n][s+1000] = count;
     }
     int findTargetSumWays(vector<int>& nums, int s) {
         int n = nums.size();
