@@ -27,6 +27,7 @@ public:
                 }
             }
         }
+        
         return dp[n-1][s+sum];
     }
 };
