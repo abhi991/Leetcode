@@ -1,24 +1,28 @@
 class Solution {
-    vector<int> dp;
-    int solve(int idx, vector<int> &nums){
-        if(idx == nums.size() - 1) return true;
-        if(dp[idx] != -1) return dp[idx];
-        
-        for(int i = 1; i <= nums[idx]; i++){
-            if((idx + i < nums.size()) && (solve(idx + i, nums))){
-                return dp[idx] = true;
-            }
+public:
+    int dp[100001];
+    bool solve(vector <int> &nums, int n, int jmp){
+        if(jmp > n) return false;
+        if(jmp == n) {
+            return true;
         }
         
-        return dp[idx] = false;
+        if(dp[jmp-1] != -1) return dp[jmp-1];
+        
+        int ans = false;
+        
+        for(int i=1;i<=nums[jmp-1];i++){
+            if(dp[jmp-1] != -1) return dp[jmp-1]; 
+            int can = solve(nums , n, jmp + i);
+            ans = (can || ans);
+            if(ans==true) return dp[jmp-1]=ans;
+        }
+        
+        return dp[jmp-1] = ans;
     }
-public:
-    
     bool canJump(vector<int>& nums) {
         int n = nums.size();
-        dp.resize(n, -1);
-        dp[n - 1] = true;
-        
-        return solve(0, nums);
+        memset(dp,-1,sizeof(dp));
+        return solve(nums,n,1);
     }
 };
